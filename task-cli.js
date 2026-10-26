@@ -1,12 +1,9 @@
-#!/usr/bin/env node
 const fs = require('node:fs')
 const path = require('node:path')
 
-// File JSON nằm ở thư mục hiện tại (nơi chạy lệnh)
 const FILE = path.join(process.cwd(), 'task.json')
 const STATUSES = ['todo', 'in-progress', 'done']
 
-// ---------- Đọc / ghi file ----------
 function loadTasks() {
     if (!fs.existsSync(FILE)) {
         fs.writeFileSync(FILE, '[]')
@@ -28,7 +25,6 @@ function saveTasks(tasks) {
     fs.writeFileSync(FILE, JSON.stringify(tasks, null, 2))
 }
 
-// ---------- Tiện ích ----------
 function fail(msg) {
     console.error('Error: ' + msg)
     process.exit(1)
@@ -71,7 +67,6 @@ function showHelp() {
   task-cli list [todo|in-progress|done]`)
 }
 
-// ---------- Các lệnh ----------
 function add(desc) {
     const description = requireDescription(desc)
     const tasks = loadTasks()
@@ -136,7 +131,6 @@ function list(filter) {
     for (const task of result) printTask(task)
 }
 
-// ---------- Main ----------
 const [cmd, arg1, arg2] = process.argv.slice(2)
 
 switch (cmd) {
